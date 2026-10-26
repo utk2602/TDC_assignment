@@ -1,0 +1,12 @@
+﻿# Product research
+
+Reviewed before implementation on 26 October 2026.
+
+| Product evidence | Decision in this MVP |
+| --- | --- |
+| [Hinge: How we connect daters](https://hinge.co/how-we-connect-daters) explains that both people must meet each other's dealbreakers and that recommendations consider mutual interest. | Check both age ranges, marital-status preferences, and non-smoking dealbreakers before scoring. Use a harmonic mean of the two directional scores. |
+| [Shaadi: Searching and matching](https://www.shaadi.com/info/customer-relations/faq/match-making) describes preferred, broader, reverse, and two-way matches; filters include mother tongue, education, profession, city, and marital status. | Separate eligibility from compatibility. Include detailed Indian biodata and explain why a suggestion fits. |
+| [Jeevansathi: Privacy policy](https://www.jeevansathi.com/privacy-policy) describes profile details, preferences, identity checks, and verification documents. | Require a verified flag and sharing consent before recommending. All records here are fictional fixtures; the badge simulates verification, not a real identity check. |
+| [Shaadi: Membership FAQ](https://www.shaadi.com/info/customer-relations/faq/membership) includes family details, hobbies, interests, horoscope details, and partner preferences. | Add mother tongue, diet, smoking, drinking, family structure, living arrangement, marriage timeline, interests, values, and explicit partner preferences. Horoscope information is omitted from the MVP because it does not drive this matching model. |
+
+The algorithm below is our own implementation; these sources inform product choices rather than establish its accuracy. Scores are decision support and do not predict relationship success. Caste and religion are biodata fields and never ranking signals.
