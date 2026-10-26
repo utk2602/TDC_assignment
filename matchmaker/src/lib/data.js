@@ -128,8 +128,10 @@ export const fullName = (profile) => `${profile.firstName} ${profile.lastName}`;
 export const initials = (profile) =>
   `${profile.firstName[0]}${profile.lastName[0]}`;
 export const incomeLabel = (income) => `₹${income} lakh / year`;
-export const heightLabel = (cm) =>
-  `${Math.floor(cm / 30.48)}′ ${Math.round((cm / 2.54) % 12)}″ (${cm} cm)`;
+export function heightLabel(cm) {
+  const inches = Math.round(cm / 2.54);
+  return `${Math.floor(inches / 12)}? ${inches % 12}? (${cm} cm)`;
+}
 
 function makeProfile(index, gender, isCustomer = false) {
   const career = pick(careers);

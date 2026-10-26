@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Check,
   ShieldCheck,
@@ -9,7 +9,7 @@ import {
   EyeOff,
   Sparkles,
 } from "lucide-react";
-import { fullName, initials } from "../lib/data.js";
+import { initials } from "../lib/data.js";
 import { DEMO_LOGIN } from "../lib/storage.js";
 
 export function Brand({ light = false }) {

@@ -1,7 +1,6 @@
-﻿import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   AlertCircle,
-  ArrowRight,
   Check,
   Copy,
   LoaderCircle,

@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowRight,
   Bookmark,
@@ -6,7 +6,6 @@ import {
   Mail,
   MessageSquare,
   Search,
-  ShieldCheck,
   Users,
 } from "lucide-react";
 import { customers, pool, ageOf, fullName } from "../lib/data.js";

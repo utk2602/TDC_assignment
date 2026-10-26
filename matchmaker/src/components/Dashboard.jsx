@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -10,10 +10,9 @@ import {
   Clock3,
   ChevronLeft,
   ChevronRight,
-  Check,
+  ShieldCheck,
   CalendarDays,
   Coffee,
-  Plus,
   X,
 } from "lucide-react";
 import { customers, STAGES, ageOf, fullName } from "../lib/data.js";
@@ -402,15 +401,11 @@ export default function Dashboard({
         </aside>
       </div>
       <div className="workspace-footnote">
-        <ShieldCheckIcon />{" "}
+        <ShieldCheck size={13} />{" "}
         <span>
           Fictional demo profiles. Every real introduction begins with consent.
         </span>
       </div>
     </>
   );
-}
-
-function ShieldCheckIcon() {
-  return <Check size={13} />;
 }

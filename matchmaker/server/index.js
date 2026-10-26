@@ -126,12 +126,10 @@ app.get("/api/customers/:id/matches", requireSession, (req, res) => {
 
 app.post("/api/intro", requireSession, async (req, res) => {
   if (!process.env.OPENAI_API_KEY)
-    return res
-      .status(503)
-      .json({
-        error:
-          "AI drafting is not configured. You can edit and send the local draft.",
-      });
+    return res.status(503).json({
+      error:
+        "AI drafting is not configured. You can edit and send the local draft.",
+    });
   const { customerId, profileId } = req.body ?? {};
   if (typeof customerId !== "string" || typeof profileId !== "string")
     return res
@@ -153,12 +151,10 @@ app.post("/api/intro", requireSession, async (req, res) => {
   if (drafts.has(cacheKey))
     return res.json({ intro: drafts.get(cacheKey), source: "openai" });
   if (req.session.draftCount >= 30)
-    return res
-      .status(429)
-      .json({
-        error:
-          "AI draft limit reached for this session. Your local draft is still available.",
-      });
+    return res.status(429).json({
+      error:
+        "AI draft limit reached for this session. Your local draft is still available.",
+    });
   req.session.draftCount++;
   const person = match.profile;
   // Only the minimum factual context leaves the server. No notes, contact data, caste, or religion.
@@ -192,12 +188,10 @@ app.post("/api/intro", requireSession, async (req, res) => {
       }),
     });
     if (!response.ok)
-      return res
-        .status(503)
-        .json({
-          error:
-            "AI drafting is unavailable right now. Your existing draft is still ready to edit.",
-        });
+      return res.status(503).json({
+        error:
+          "AI drafting is unavailable right now. Your existing draft is still ready to edit.",
+      });
     const data = await response.json();
     const intro = data.output
       ?.flatMap((item) => item.content ?? [])
@@ -206,21 +200,16 @@ app.post("/api/intro", requireSession, async (req, res) => {
       .join("\n")
       .trim();
     if (data.status !== "completed" || !intro || intro.length > 5000)
-      return res
-        .status(503)
-        .json({
-          error:
-            "AI could not complete a draft. Please use the existing draft.",
-        });
+      return res.status(503).json({
+        error: "AI could not complete a draft. Please use the existing draft.",
+      });
     drafts.set(cacheKey, intro);
     res.json({ intro, source: "openai" });
   } catch {
-    res
-      .status(503)
-      .json({
-        error:
-          "AI drafting timed out or could not connect. Your existing draft is still here.",
-      });
+    res.status(503).json({
+      error:
+        "AI drafting timed out or could not connect. Your existing draft is still here.",
+    });
   }
 });
 
@@ -234,14 +223,12 @@ app.get("/{*path}", (_req, res) => {
   res.sendFile(path.join(root, "dist/index.html"));
 });
 app.use((error, _req, res, _next) =>
-  res
-    .status(error.status === 400 ? 400 : 500)
-    .json({
-      error:
-        error.status === 400
-          ? "Invalid JSON request."
-          : "The request could not be completed.",
-    }),
+  res.status(error.status === 400 ? 400 : 500).json({
+    error:
+      error.status === 400
+        ? "Invalid JSON request."
+        : "The request could not be completed.",
+  }),
 );
 
 const cleanup = setInterval(

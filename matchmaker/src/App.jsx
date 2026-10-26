@@ -1,26 +1,20 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  ArrowRight,
-  Bell,
   Bookmark,
   Check,
   ChevronRight,
   CircleHelp,
-  Heart,
   LayoutDashboard,
   LogOut,
-  Mail,
   Menu,
   MessageSquare,
   Search,
   Send,
-  ShieldCheck,
-  Sparkles,
   Users,
   X,
 } from "lucide-react";
-import { customers, DEMO_USER, fullName, pool } from "./lib/data.js";
-import { draftIntro } from "./lib/matching.js";
+import { customers, DEMO_USER, fullName } from "./lib/data.js";
+
 import {
   readSession,
   readWorkspace,

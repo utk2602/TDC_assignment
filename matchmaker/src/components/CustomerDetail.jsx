@@ -1,24 +1,19 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowLeft,
-  ArrowRight,
   Bookmark,
   Check,
   ChevronRight,
   Heart,
   MapPin,
   BriefcaseBusiness,
-  GraduationCap,
-  Mail,
   MessageSquare,
   Plus,
   Search,
   Send,
   SlidersHorizontal,
   Sparkles,
-  UserRound,
   Users,
-  X,
 } from "lucide-react";
 import {
   STAGES,
@@ -29,14 +24,15 @@ import {
   pool,
 } from "../lib/data.js";
 import { rankMatches } from "../lib/matching.js";
-import { Avatar, EmptyState, StatusBadge, Verified } from "./shared.jsx";
+import { Avatar, EmptyState, Verified } from "./shared.jsx";
 
 export function ProfileFields({ profile }) {
   const groups = [
     [
       "Personal details",
       [
-        ["Full name", fullName(profile)],
+        ["First name", profile.firstName],
+        ["Last name", profile.lastName],
         ["Gender", profile.gender],
         [
           "Date of birth",
@@ -392,6 +388,20 @@ export default function CustomerDetail({
   const [cityOnly, setCityOnly] = useState(false);
   const [limit, setLimit] = useState(6);
   const [filterOpen, setFilterOpen] = useState(false);
+  function handleTabKey(event) {
+    const items = ["Matches", "Biodata", "Notes"];
+    const current = items.indexOf(tab);
+    let next;
+    if (event.key === "ArrowRight") next = items[(current + 1) % items.length];
+    else if (event.key === "ArrowLeft")
+      next = items[(current + items.length - 1) % items.length];
+    else if (event.key === "Home") next = items[0];
+    else if (event.key === "End") next = items.at(-1);
+    else return;
+    event.preventDefault();
+    setTab(next);
+    document.getElementById("tab-" + next)?.focus();
+  }
   const result = useMemo(() => rankMatches(customer, pool), [customer]);
   const status = workspace.statuses[customer.id] ?? customer.status;
   const notes = workspace.notes[customer.id] ?? [];
@@ -527,6 +537,8 @@ export default function CustomerDetail({
                 key={item}
                 className={tab === item ? "active" : ""}
                 onClick={() => setTab(item)}
+                onKeyDown={handleTabKey}
+                tabIndex={tab === item ? 0 : -1}
               >
                 {item}
                 {item === "Matches" && <span>{result.matches.length}</span>}
