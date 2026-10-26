@@ -227,6 +227,14 @@ export function rankMatches(
       reasons.push(
         `Shared ${customer.careerField.toLowerCase()} career context`,
       );
+    if (!reasons.length) {
+      const sharedLanguages = overlap(customer.languages, candidate.languages);
+      reasons.push(
+        sharedLanguages.length
+          ? `Shared language: ${sharedLanguages.join(', ')}`
+          : 'Meets eligibility rules; limited positive compatibility signals',
+      );
+    }
     if (customer.city !== candidate.city)
       cautions.push(
         `Different cities: ${customer.city} and ${candidate.city}. Discuss who would move.`,
